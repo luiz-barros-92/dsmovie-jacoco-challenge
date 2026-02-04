@@ -40,6 +40,7 @@ public class MovieServiceTests {
 	private String title;
 	private PageImpl<MovieEntity> page;
 	private MovieEntity movie;
+	private MovieDTO movieDTO;
 	private Long existingMovieId;
 	private Long nonExistingMovieId;
 
@@ -47,6 +48,7 @@ public class MovieServiceTests {
 	void setUp() throws Exception {
 		title = "The Witcher";
 		movie = new MovieEntity(1L, title, 4.5, 2, "www.imagefromthisfilm.com");
+		movieDTO = new MovieDTO(null, title, 5.0, 1, "www.thisfilm.com");
 		page = new PageImpl<>(List.of(movie));
 		existingMovieId = 1L;
 		nonExistingMovieId = 1000L;
@@ -56,6 +58,8 @@ public class MovieServiceTests {
 
 		when(repository.findById(existingMovieId)).thenReturn(Optional.of(movie));
 		when(repository.findById(nonExistingMovieId)).thenReturn(Optional.empty());
+		
+		when(repository.save(ArgumentMatchers.any())).thenReturn(movie);
 	}
 
 	@Test
@@ -88,6 +92,11 @@ public class MovieServiceTests {
 
 	@Test
 	public void insertShouldReturnMovieDTO() {
+		MovieDTO result = service.insert(movieDTO);
+		
+		assertNotNull(result);
+		assertEquals(result.getId(), movie.getId());
+		assertEquals(result.getTitle(), movie.getTitle());
 	}
 
 	@Test
