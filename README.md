@@ -5,9 +5,9 @@ You must implement the following tests to complete the Jacoco coverage.
 <br>
 ## Challenge Status:
 ### MovieServiceTests
-- [ ] `findAllShouldReturnPagedMovieDTO`
-- [ ] `findByIdShouldReturnMovieDTOWhenIdExists`
-- [ ] `findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist`
+- [x] `findAllShouldReturnPagedMovieDTO`
+- [x] `findByIdShouldReturnMovieDTOWhenIdExists`
+- [x] `findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist`
 - [ ] `insertShouldReturnMovieDTO`
 - [ ] `updateShouldReturnMovieDTOWhenIdExists`
 - [ ] `updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist`
