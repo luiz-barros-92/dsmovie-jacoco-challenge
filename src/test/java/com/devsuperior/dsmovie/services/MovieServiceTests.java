@@ -28,6 +28,8 @@ import com.devsuperior.dsmovie.entities.MovieEntity;
 import com.devsuperior.dsmovie.repositories.MovieRepository;
 import com.devsuperior.dsmovie.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @ExtendWith(SpringExtension.class)
 public class MovieServiceTests {
 
@@ -60,6 +62,9 @@ public class MovieServiceTests {
 		when(repository.findById(nonExistingMovieId)).thenReturn(Optional.empty());
 		
 		when(repository.save(ArgumentMatchers.any())).thenReturn(movie);
+		
+		when(repository.getReferenceById(existingMovieId)).thenReturn(movie);		
+		when(repository.getReferenceById(nonExistingMovieId)).thenThrow(EntityNotFoundException.class);
 	}
 
 	@Test
@@ -101,10 +106,23 @@ public class MovieServiceTests {
 
 	@Test
 	public void updateShouldReturnMovieDTOWhenIdExists() {
+		MovieDTO result = service.update(existingMovieId, movieDTO);
+		
+		assertNotNull(result);
+		assertEquals(existingMovieId, result.getId());
+		assertEquals(movie.getTitle(), result.getTitle());
+		
+		verify(repository).getReferenceById(existingMovieId);
+		verify(repository).save(ArgumentMatchers.any());
 	}
 
 	@Test
 	public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+		assertThrows(ResourceNotFoundException.class, () -> {
+	        service.update(nonExistingMovieId, movieDTO);
+	    });
+		
+		verify(repository).getReferenceById(nonExistingMovieId);
 	}
 
 	@Test

@@ -8,9 +8,9 @@ You must implement the following tests to complete the Jacoco coverage.
 - [x] `findAllShouldReturnPagedMovieDTO`
 - [x] `findByIdShouldReturnMovieDTOWhenIdExists`
 - [x] `findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist`
-- [ ] `insertShouldReturnMovieDTO`
-- [ ] `updateShouldReturnMovieDTOWhenIdExists`
-- [ ] `updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist`
+- [x] `insertShouldReturnMovieDTO`
+- [x] `updateShouldReturnMovieDTOWhenIdExists`
+- [x] `updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist`
 - [ ] `deleteShouldDoNothingWhenIdExists`
 - [ ] `deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist`
 - [ ] `deleteShouldThrowDatabaseExceptionWhenDependentId`
