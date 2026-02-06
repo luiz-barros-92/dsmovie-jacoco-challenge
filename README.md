@@ -16,8 +16,8 @@ You must implement the following tests to complete the Jacoco coverage.
 - [x] `deleteShouldThrowDatabaseExceptionWhenDependentId`
 
 ### ScoreServiceTests
-- [ ] `saveScoreShouldReturnMovieDTO`
-- [ ] `saveScoreShouldThrowResourceNotFoundExceptionWhenNonExistingMovieId`
+- [x] `saveScoreShouldReturnMovieDTO`
+- [x] `saveScoreShouldThrowResourceNotFoundExceptionWhenNonExistingMovieId`
 
 ### UserServiceTests
 - [ ] `authenticatedShouldReturnUserEntityWhenUserExists`
