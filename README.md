@@ -22,5 +22,5 @@ You must implement the following tests to complete the Jacoco coverage.
 ### UserServiceTests
 - [x] `authenticatedShouldReturnUserEntityWhenUserExists`
 - [x] `authenticatedShouldThrowUsernameNotFoundExceptionWhenUserDoesNotExists`
-- [ ] `loadUserByUsernameShouldReturnUserDetailsWhenUserExists`
-- [ ] `loadUserByUsernameShouldThrowUsernameNotFoundExceptionWhenUserDoesNotExists`
+- [x] `loadUserByUsernameShouldReturnUserDetailsWhenUserExists`
+- [x] `loadUserByUsernameShouldThrowUsernameNotFoundExceptionWhenUserDoesNotExists`
