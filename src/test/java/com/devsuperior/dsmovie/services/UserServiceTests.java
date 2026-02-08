@@ -3,9 +3,12 @@ package com.devsuperior.dsmovie.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -38,7 +42,6 @@ public class UserServiceTests {
 	
 	private String existingUsername, nonExistingUsername;
 	private UserEntity user;	
-	private List<UserDetailsProjection> userDetails;
 	
 	@BeforeEach
 	void setup() throws Exception {
@@ -73,9 +76,32 @@ public class UserServiceTests {
 
 	@Test
 	public void loadUserByUsernameShouldReturnUserDetailsWhenUserExists() {
+		UserDetailsProjection projection = mock(UserDetailsProjection.class);
+		when(projection.getUsername()).thenReturn(existingUsername);
+		when(projection.getPassword()).thenReturn("123");
+		when(projection.getRoleId()).thenReturn(1L);
+		when(projection.getAuthority()).thenReturn("ROLE_OPERATOR");
+		
+		List<UserDetailsProjection> list = List.of(projection);
+		
+		when(repository.searchUserAndRolesByUsername(existingUsername)).thenReturn(list);
+		
+		UserDetails result = service.loadUserByUsername(existingUsername);
+		
+		assertNotNull(result);
+		assertEquals(existingUsername, result.getUsername());
+		assertTrue(result.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_OPERATOR")));
+		verify(repository).searchUserAndRolesByUsername(existingUsername);
 	}
 
 	@Test
 	public void loadUserByUsernameShouldThrowUsernameNotFoundExceptionWhenUserDoesNotExists() {
+		when(repository.searchUserAndRolesByUsername(nonExistingUsername)).thenReturn(new ArrayList<>());
+		
+		assertThrows(UsernameNotFoundException.class, () -> {
+	        service.loadUserByUsername(nonExistingUsername);
+	    });
+		
+		verify(repository).searchUserAndRolesByUsername(nonExistingUsername);
 	}
 }
