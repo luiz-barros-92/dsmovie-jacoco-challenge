@@ -20,7 +20,7 @@ You must implement the following tests to complete the Jacoco coverage.
 - [x] `saveScoreShouldThrowResourceNotFoundExceptionWhenNonExistingMovieId`
 
 ### UserServiceTests
-- [ ] `authenticatedShouldReturnUserEntityWhenUserExists`
-- [ ] `authenticatedShouldThrowUsernameNotFoundExceptionWhenUserDoesNotExists`
+- [x] `authenticatedShouldReturnUserEntityWhenUserExists`
+- [x] `authenticatedShouldThrowUsernameNotFoundExceptionWhenUserDoesNotExists`
 - [ ] `loadUserByUsernameShouldReturnUserDetailsWhenUserExists`
 - [ ] `loadUserByUsernameShouldThrowUsernameNotFoundExceptionWhenUserDoesNotExists`
